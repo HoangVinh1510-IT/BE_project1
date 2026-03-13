@@ -21,7 +21,7 @@ const port = process.env.PORT;
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.set("views", "./views");
+app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
 // flash
@@ -36,7 +36,7 @@ app.use(flash());
 // app.lodal là tạo ra các biến toàn cục mà file .pug nào cũng dùng được
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
-app.use(express.static("public"));
+app.use(express.static(`${__dirname}/public`));
 
 //routes
 routeAdmin(app);
