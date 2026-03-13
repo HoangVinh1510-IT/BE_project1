@@ -1,0 +1,76 @@
+extends ../../layouts/default.pug
+
+block main
+    h1(class="mb-4") Chi tiết sản phẩm
+
+
+    if(product)
+        div(class="card")
+            div(class="card-body")
+
+                div(class="row")
+
+                    // Ảnh sản phẩm
+                    div(class="col-md-4 text-center")
+                        if(product.thumbnail)
+                            img(
+                                src=product.thumbnail
+                                alt=product.title
+                                style="max-width:100%;border-radius:8px"
+                            )
+
+                    // Thông tin sản phẩm
+                    div(class="col-md-8")
+
+                        h2(class="mb-3") #{product.title}
+
+                        p
+                            b Giá:
+                            span.text-danger.ml-2 #{product.price}$
+
+                        p
+                            b Giảm giá:
+                            span.ml-2 #{product.discountPercentage}%
+
+                        p
+                            b Còn lại:
+                            span.ml-2 #{product.stock}
+
+                        p
+                            b Vị trí:
+                            span.ml-2 #{product.position}
+
+                        p
+                            b Trạng thái:
+
+                            if(product.status == "active")
+                                span(class="badge badge-success ml-2") Hoạt động
+                            else
+                                span(class="badge badge-danger ml-2") Ngừng hoạt động
+
+                        hr
+
+                        div
+                            b Mô tả:
+                            p(class="mt-2")
+                                if(product.description)
+                                    | #{product.description}
+                                else
+                                    span.text-muted Không có mô tả
+
+                        hr
+
+                        a(
+                            href=`${prefixAdmin}/products/edit/${product._id}`
+                            class="btn btn-warning mr-2"
+                        ) Chỉnh sửa
+
+                        a(
+                            href=`${prefixAdmin}/products`
+                            class="btn btn-secondary"
+                        ) Quay lại danh sách
+    else
+        div(class="alert alert-danger")
+            | Không tìm thấy sản phẩm
+
+    script(src="/admin/js/product.js")
